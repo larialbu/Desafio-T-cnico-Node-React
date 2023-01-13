@@ -1,0 +1,12 @@
+Para fucionar irá precisar baixar algumas dependências
+
+para ativar o react:
+usar (cd frontend) e add os comandos abaixo:
+1- npm install --save react-toastify
+2- npm install axios --save
+3- npm i styled-components 
+4- npm install react-icons
+5- npm install react-router-dom
+
+para ativar o node js:
+1- npm install --save yarn
