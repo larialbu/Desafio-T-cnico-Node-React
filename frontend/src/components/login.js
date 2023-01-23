@@ -1,5 +1,5 @@
-import{Link} from 'react-router-dom'
 import styles1 from './login.module.css'
+import { Link } from "react-router-dom";
 import { FaEnvelope, FaLock, FaFacebook, FaGoogle, FaGithub } from 'react-icons/fa' ;
 
 function Login(){
@@ -18,9 +18,11 @@ function Login(){
                             <FaLock className={styles1.icons1}/>
                         <input type="password" placeholder='Enter your password' required/>
                         </div> 
-                        <div className={styles1.fotgot1}> <Link to='./RecuperarSenha' className={styles1.a}>Esqueceu a senha?</Link></div>
+                        <div className={styles1.fotgot1}></div>
                         <div className={styles1.inputBox1}>
-                            <input type="submit" vaule="Entrar"/>
+                            {/* <input type="submit" vaule="Entrar" /> */}
+                            <button><Link className={styles1.link1} to='./cadastro'>Entrar</Link></button>
+                            
                         </div>
                         <div className={styles1.divider1}>ou</div>
                         <div className={styles1.medias1}>

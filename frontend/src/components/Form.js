@@ -57,6 +57,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     e.preventDefault();
 
     const user = ref.current;
+    console.log(user?.currentTarget?.elements)
 
     if (
       !user.nome.value ||
@@ -68,8 +69,9 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
     }
 
     if (onEdit) {
+      console.log("edit",user)
       await axios
-        .put("http://localhost:8800/" + onEdit.id, {
+        .put("http://localhost:8080/" + onEdit.id, {
           nome: user.nome.value,
           descricao: user.descricao.value,
           hora_inicio: user.hora_inicio.value,
@@ -78,8 +80,9 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     } else {
+      console.log("create",user)
       await axios
-        .post("http://localhost:8800", {
+        .post("http://localhost:8080", {
           nome: user.nome.value,
           descricao: user.descricao.value,
           hora_inicio: user.hora_inicio.value,
