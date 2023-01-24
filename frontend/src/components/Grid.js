@@ -20,27 +20,25 @@ export const Thead = styled.thead``;
 
 export const Tbody = styled.tbody``;
 
-export const Tr = styled.tr``;
+export const Tr = styled.tr`
+} 
+`;
 
 export const Th = styled.th`
   text-align: start;
   border-bottom: inset;
   padding-bottom: 5px;
-  @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
-  }
+  width: 130px;
+
 `;
 
 export const Td = styled.td`
   padding-top: 15px;
   text-align: ${(props) => (props.alignCenter ? "center" : "start")};
-  width: ${(props) => (props.width ? props.width : "auto")};
-  @media (max-width: 500px) {
-    ${(props) => props.onlyWeb && "display: none"}
-  }
+  width:40px;
 `;
 
-const Grid = ({ users, setUsers, setOnEdit }) => {
+const Grid = ({ activity, setAtividades, setOnEdit }) => {
   const handleEdit = (item) => {
     setOnEdit(item);
   };
@@ -49,9 +47,9 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
     await axios
       .delete("http://localhost:8080/" + id)
       .then(({ data }) => {
-        const newArray = users.filter((user) => user.id !== id);
+        const newArray = activity.filter((atividades) => atividades.id !== id);
 
-        setUsers(newArray);
+        setAtividades(newArray);
         toast.success(data);
       })
       .catch(({ data }) => toast.error(data));
@@ -67,12 +65,11 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
           <Th>Descrição</Th>
           <Th onlyWeb>Hora I</Th>
           <Th onlyWeb>Hora T</Th>
-          <Th></Th>
-          <Th></Th>
+          <Th onlyWeb>status</Th>
         </Tr>
       </Thead>
       <Tbody>
-        {users.map((item, i) => (
+        {activity.map((item, i) => (
           <Tr key={i}>
             <Td width="30%">{item.nome}</Td>
             <Td width="30%">{item.descricao}</Td>
@@ -81,6 +78,9 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
             </Td>
             <Td width="20%" onlyWeb>
               {item.hora_termino}
+            </Td>
+            <Td onlyWeb>
+              {item.status}
             </Td>
             <Td alignCenter width="5%">
               <FaEdit onClick={() => handleEdit(item)} />

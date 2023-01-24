@@ -27,6 +27,18 @@ const Input = styled.input`
   height: 40px;
 `;
 
+const Select = styled.select`
+  width: 130px;
+  padding: 0 10px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  height: 40px;
+`;
+
+const Option = styled.option`
+
+`;
+
 const Label = styled.label``;
 
 const Button = styled.button`
@@ -37,68 +49,78 @@ const Button = styled.button`
   background-color: #2c73d2;
   color: white;
   height: 42px;
-`;
+`; 
 
-const Form = ({ getUsers, onEdit, setOnEdit }) => {
+const Form = ({ getAtividades, onEdit, setOnEdit }) => {
   const ref = useRef();
 
   useEffect(() => {
     if (onEdit) {
-      const user = ref.current;
+      const atividades = ref.current;
 
-      user.nome.value = onEdit.nome;
-      user.descricao.value = onEdit.email;
-      user.hora_inicio.value = onEdit.hora_inicio;
-      user.hora_termino.value = onEdit.hora_termino;
+      atividades.nome.value = onEdit.nome;
+      atividades.descricao.value = onEdit.email;
+      atividades.hora_inicio.value = onEdit.hora_inicio;
+      atividades.hora_termino.value = onEdit.hora_termino;
+      atividades.status.value = onEdit.status;
+
+      
     }
   }, [onEdit]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user = ref.current;
-    console.log(user?.currentTarget?.elements)
+    const atividades = ref.current;
+    console.log(atividades?.currentTarget?.elements)
 
     if (
-      !user.nome.value ||
-      !user.descricao.value ||
-      !user.hora_inicio.value ||
-      !user.hora_termino.value
+      !atividades.nome.value ||
+      !atividades.descricao.value ||
+      !atividades.hora_inicio.value ||
+      !atividades.hora_termino.value ||
+      !atividades.status.value 
+      
     ) {
       return toast.warn("Preencha todos os campos!");
     }
 
     if (onEdit) {
-      console.log("edit",user)
+      console.log("edit",atividades)
       await axios
         .put("http://localhost:8080/" + onEdit.id, {
-          nome: user.nome.value,
-          descricao: user.descricao.value,
-          hora_inicio: user.hora_inicio.value,
-          hora_termino: user.hora_termino.value,
+          nome: atividades.nome.value,
+          descricao: atividades.descricao.value,
+          hora_inicio: atividades.hora_inicio.value,
+          hora_termino: atividades.hora_termino.value,
+          status: atividades.status.value,
+          
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     } else {
-      console.log("create",user)
+      console.log("create",atividades)
       await axios
         .post("http://localhost:8080", {
-          nome: user.nome.value,
-          descricao: user.descricao.value,
-          hora_inicio: user.hora_inicio.value,
-          hora_termino: user.hora_termino.value,
+          nome: atividades.nome.value,
+          descricao: atividades.descricao.value,
+          hora_inicio: atividades.hora_inicio.value,
+          hora_termino: atividades.hora_termino.value,
+          status: atividades.status.value,
+          
         })
         .then(({ data }) => toast.success(data))
         .catch(({ data }) => toast.error(data));
     }
 
-    user.nome.value = "";
-    user.descricao.value = "";
-    user.hora_inicio.value = "";
-    user.hora_termino.value = "";
+    atividades.nome.value = "";
+    atividades.descricao.value = "";
+    atividades.hora_inicio.value = "";
+    atividades.hora_termino.value = "";
+    atividades.status.value = "";
 
     setOnEdit(null);
-    getUsers();
+    getAtividades();
   };
 
   return (
@@ -118,6 +140,15 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
       <InputArea>
         <Label>Hora de termino</Label>
         <Input name="hora_termino" type="time" />
+      </InputArea>
+      <InputArea>
+        <Label>Status</Label>
+        {/* <Input name="status" type="select" /> */}
+        <Select name="status" >
+          <Option name="status" value="concluida">concluida</Option>
+          <Option name="status" value="em andamento">em andamento</Option>
+          <Option name="status" selected value="pendente">pendente</Option>
+        </Select>
       </InputArea>
 
       <Button type="submit">SALVAR</Button>

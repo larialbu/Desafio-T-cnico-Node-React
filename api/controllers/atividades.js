@@ -1,7 +1,7 @@
 import { db } from "../db.js";
 
-export const getUsers = (_, res) => {
-  const q = "SELECT * FROM usuarios";
+export const getAtividades = (_, res) => {
+  const q = "SELECT * FROM atividades";
 
   db.query(q, (err, data) => {
     if (err) return res.json(err);
@@ -10,15 +10,17 @@ export const getUsers = (_, res) => {
   });
 };
 
-export const addUser = (req, res) => {
+export const addAtividades = (req, res) => {
   const q =
-    "INSERT INTO usuarios(`nome`, `descricao`, `hora_inicio`, `hora_termino`) VALUES(?)";
+    "INSERT INTO atividades(`nome`, `descricao`, `hora_inicio`, `hora_termino`,`status`,`id_usuario`) VALUES(?)";
 
   const values = [
     req.body.nome,
     req.body.descricao,
     req.body.hora_inicio,
     req.body.hora_termino,
+    req.body.status,
+    1 
   ];
 
   db.query(q, [values], (err) => {
@@ -28,15 +30,16 @@ export const addUser = (req, res) => {
   });
 };
 
-export const updateUser = (req, res) => {
+export const updateAtividades = (req, res) => {
   const q =
-    "UPDATE usuarios SET `nome` = ?, `descricao` = ?, `hora_inicio` = ?, `hora_termino` = ? WHERE `id` = ?";
+    "UPDATE atividades SET `nome` = ?, `descricao` = ?, `hora_inicio` = ?, `hora_termino` = ?, `status` = ? `id_usuario` = ? WHERE `id` = ?";
 
   const values = [
     req.body.nome,
     req.body.descricao,
     req.body.hora_inicio,
     req.body.hora_termino,
+    req.body.status,
   ];
 
   db.query(q, [...values, req.params.id], (err) => {
@@ -46,8 +49,8 @@ export const updateUser = (req, res) => {
   });
 };
 
-export const deleteUser = (req, res) => {
-  const q = "DELETE FROM usuarios WHERE `id` = ?";
+export const deleteAtividades = (req, res) => {
+  const q = "DELETE FROM atividades WHERE `id` = ?";
 
   db.query(q, [req.params.id], (err) => {
     if (err) return res.json(err);

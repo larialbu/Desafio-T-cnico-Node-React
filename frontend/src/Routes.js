@@ -1,8 +1,9 @@
 import React from "react";
 import {Routes, Route, BrowserRouter } from "react-router-dom";
 
-import Login from "./components/login";
+import Login from "./components/Login";
 import Cadastro from "./components/Cadastro";
+
 
 
 const RoutesApp = () => {
@@ -11,7 +12,6 @@ const RoutesApp = () => {
             <Routes>
                 <Route element = { <Login/> }  path="/login"/>
                 <Route element = { <Cadastro/> } path="login/cadastro"/>
-
             </Routes>
        </BrowserRouter>
    )
