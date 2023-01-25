@@ -33,7 +33,7 @@ export const Th = styled.th`
 `;
 
 export const Td = styled.td`
-  padding-top: 15px;
+  padding-top: 15px; 
   text-align: ${(props) => (props.alignCenter ? "center" : "start")};
   width:40px;
 `;
