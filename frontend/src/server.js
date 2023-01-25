@@ -30,7 +30,7 @@ api.get('./login', (req, res) => {
         return res.send(error);
     }
 });
-
+       
 api.use('*', tokenValited);
 
 api.get('./private',(req, res) => {
